@@ -179,7 +179,7 @@ def menu():
         #remove names from inventory
         elif option==4:
             while True:
-                print("Entry the name of the name you want to delete: ");name=validate_letters()
+                print("\nEntry the name of the name you want to delete: ");name=validate_letters()
                 nameDelete(name)
                 print("\nDo you want to do something else? (s/n): ")
                 if Validationsn() == 'n':
