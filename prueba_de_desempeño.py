@@ -7,7 +7,7 @@ inventory = [
     {"name": "cheese", "price": 25.0, "quantity": 10},
     {"name": "soda", "price": 30.0, "quantity": 20}
 ]
-
+#accept special characters
 def validate_letters():
     pattern = r"^[\wÁÉÍÓÚÜÑáéíóúüñ\s.,@#!$%&()\-]+$"
     while True:
@@ -70,6 +70,7 @@ def consultnames_list():
         print(f"name: {product['name']}, Price: ${product['price']}, quantity: {product['quantity']}")
         print("-" * 50)
 
+# Consult names
 def consultnames_search(name):
     
     for product in inventory:
@@ -85,10 +86,15 @@ def consultnames_search(name):
 #Update Price
 def UpdatePrice(name,price):
     for product in inventory:
-        if product["name"].lower()==name.lower():
-            product["price"]=price
-            print(f"The name with the name {name}, the price has been update({price}).")
+        if product["price"]==price:
+            print("Same prices error.")
             return
+        else:
+            if product["name"].lower()==name.lower():
+                print(f"\nThe product with the name {name}, had a price of {product["price"]}.")
+                product["price"]=price
+                print(f"\nThe product with the name {name}, the price has been update({price}).")
+                return
     print(f"The name({name}) was not found")
 
 #Delete names
@@ -115,6 +121,7 @@ def CalculateTotal():
 #menu
 def menu():
     while True:
+        #Interactive menu
         print("""
             list of funtions
             
@@ -127,45 +134,49 @@ def menu():
             """)
         print("\nenter one option(1-6): "); option=ValidationNumINT()
         
+        #Add names to inventory
         if option==1:
             while True:
-                print("Enter the product name: "); name=validate_letters()
+                print("\nEnter the product name: "); name=validate_letters()
                 if not exists_product(name):
-                    print("Enter the product price: "); price=ValidatioNumFLOAT()
-                    print("Enter the quality of product: "); quality=ValidationNumINT()
+                    print("\nEnter the product price: "); price=ValidatioNumFLOAT()
+                    print("\nEnter the quality of product: "); quality=ValidationNumINT()
                     Addname(name,price,quality)
                     print("\nDo you want to do something else? (s/n):")
                     if Validationsn() == 'n':
                         break
                 else:
                     print("The product already exists.")
+        #Consult names in inventory
         elif option==2:
             while True:
-                print("Search by name(s) or display list(n): "); consult=validate_letters()
-                if consult=="s":
-                    print("product name: ");name=validate_letters()
+                print("\nSearch by name(n) or display list(l): "); consult=validate_letters()
+                if consult=="n":
+                    print("\nproduct name: ");name=validate_letters()
                     consultnames_search(name)
                     print("\nDo you want to do something else? (s/n):")
                     if Validationsn() == 'n':
                         break
-                elif consult=="n":
+                elif consult=="l":
                     consultnames_list()
                     print("\nDo you want to do something else? (s/n):")
                     if Validationsn() == 'n':
                         break
                 else:
                     print("Invalid option")
+        #Update price list
         elif option==3:
             while True:
-                print("Entry the name name: "); name=validate_letters()
+                print("\nEntry the product name: "); name=validate_letters()
                 if exists_product(name):
-                    print("Entry the new price: "); price=ValidatioNumFLOAT()
+                    print("\nEntry the new price: "); price=ValidatioNumFLOAT()
                     UpdatePrice(name,price)
                     print("\nDo you want to do something else? (s/n): ")
                     if Validationsn() == 'n':
                             break
                 else:
                     print("the product does not exist\n")
+        #remove names from inventory
         elif option==4:
             while True:
                 print("Entry the name of the name you want to delete: ");name=validate_letters()
@@ -173,12 +184,14 @@ def menu():
                 print("\nDo you want to do something else? (s/n): ")
                 if Validationsn() == 'n':
                         break
+        #Calculate the total value of the inventory
         elif option==5:
             CalculateTotal()
+        #Exit
         elif option==6:
-            print("GoodBye.....")
+            print("\nGoodBye.....")
             break
         else:
-            print("Please use a correct option, thx.")
+            print("\nPlease use a correct option, thx.")
             
 menu()
